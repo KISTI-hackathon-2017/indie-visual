@@ -169,7 +169,7 @@ with detection_graph.as_default():
                 people_boxes.append(people_box)
 
             # compare with finding people
-            thresh_hist = 0.94
+            thresh_hist = 0.95
             for box in people_boxes:
                 cropped = image[box[1]:box[3], box[0]:box[2]]
                 cropped_hist = getHist(cropped)
