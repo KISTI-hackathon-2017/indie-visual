@@ -341,44 +341,7 @@ def imresize(src, height):
     width = int(src.shape[1] * 1.0/ratio)
     return cv2.resize(src, (width, height))
 
-if __name__ == '__main__':
-
-    orb = cv2.ORB_create(10000)
-    orb.setFastThreshold(0)
-    if cv2.__version__.startswith('3'):
-        matcher = cv2.BFMatcher(cv2.NORM_HAMMING)
-    else:
-        matcher = cv2.BFMatcher_create(cv2.NORM_HAMMING)
-    gms = GmsMatcher(orb, matcher)
-
-    img2 = cv2.imread("../test_data/find7.jpg")
-    cap = cv2.VideoCapture("../test_data_video/test_video.avi")
-
-    while True:
-        ret, img1 = cap.read()
-        if not ret:
-            print("Can't read video")
-            break
-
-
-        img1 = imresize(img1, 480)
-        img2 = imresize(img2, 480)
-
-
-
-        matches = gms.compute_matches(img1, img2)
-        gms.draw_matches(img1, img2, DrawingType.ONLY_LINES)
-
-        if cv2.waitKey(1) != -1:
-            break
-
-
 # if __name__ == '__main__':
-#     img1 = cv2.imread("../test_data/find3.jpg")
-#     img2 = cv2.imread("../test_data/find5.jpg")
-
-#     img1 = imresize(img1, 360)
-#     img2 = imresize(img2, 360)
 
 #     orb = cv2.ORB_create(10000)
 #     orb.setFastThreshold(0)
@@ -388,9 +351,46 @@ if __name__ == '__main__':
 #         matcher = cv2.BFMatcher_create(cv2.NORM_HAMMING)
 #     gms = GmsMatcher(orb, matcher)
 
-#     matches = gms.compute_matches(img1, img2)
-#     gms.draw_matches(img1, img2, DrawingType.ONLY_LINES)
+#     img2 = cv2.imread("../test_data/find7.jpg")
+#     cap = cv2.VideoCapture("../test_data_video/test_video.avi")
 
-#     cv2.waitKey()
+#     while True:
+#         ret, img1 = cap.read()
+#         if not ret:
+#             print("Can't read video")
+#             break
+
+
+#         img1 = imresize(img1, 480)
+#         img2 = imresize(img2, 480)
+
+
+
+#         matches = gms.compute_matches(img1, img2)
+#         gms.draw_matches(img1, img2, DrawingType.ONLY_LINES)
+
+#         if cv2.waitKey(1) != -1:
+#             break
+
+
+if __name__ == '__main__':
+    img1 = cv2.imread("../test_data/people1.jpg")
+    img2 = cv2.imread("../test_data/people2.jpg")
+
+    img1 = imresize(img1, 360)
+    img2 = imresize(img2, 360)
+
+    orb = cv2.ORB_create(10000)
+    orb.setFastThreshold(0)
+    if cv2.__version__.startswith('3'):
+        matcher = cv2.BFMatcher(cv2.NORM_HAMMING)
+    else:
+        matcher = cv2.BFMatcher_create(cv2.NORM_HAMMING)
+    gms = GmsMatcher(orb, matcher)
+
+    matches = gms.compute_matches(img1, img2)
+    gms.draw_matches(img1, img2, DrawingType.ONLY_LINES)
+
+    cv2.waitKey()
         
 
